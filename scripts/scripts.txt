@@ -1,0 +1,76 @@
+31/07/2022:
+
+CREATE TABLE public.pokemons
+(
+    id bigserial NOT NULL,
+    pokedex_num numeric NOT NULL,
+    name text NOT NULL,
+    description text NOT NULL,
+    sprite text NOT NULL,
+    image text NOT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE IF EXISTS public.pokemons
+    OWNER to admin;
+
+
+
+
+INSERT INTO public.pokemons(
+	pokedex_num, name, description, sprite, image)
+	VALUES (001, 'Bulbasaur', 'Una rara semilla fue plantada en su espalda al nacer. La planta brota y crece con este Pokémon.', 'bulbasaur.png', 'bulbasaur.png');
+
+INSERT INTO public.pokemons(
+	pokedex_num, name, description, sprite, image)
+	VALUES (002, 'Ivysaur', 'Cuando el bulbo de su espalda crece, parece no poder ponerse de pie sobre sus patas traseras.', 'ivysaur.png', 'ivysaur.png');
+
+INSERT INTO public.pokemons(
+	pokedex_num, name, description, sprite, image)
+	VALUES (003, 'Venusaur', 'La planta florece cuando absorbe energía solar. Ésta le obliga a ponerse en busca de la luz solar.', 'venusaur.png', 'venusaur.png');
+
+INSERT INTO public.pokemons(
+	pokedex_num, name, description, sprite, image)
+	VALUES (004, 'Charmander', 'Prefiere los sitios calientes. Dicen que cuando llueve sale vapor de la punta de su cola.', 'charmander.png', 'charmander.png');
+
+INSERT INTO public.pokemons(
+	pokedex_num, name, description, sprite, image)
+	VALUES (005, 'Charmeleon', 'Cuando balancea su ardiente cola, eleva la temperatura a niveles muy altos.', 'charmeleon.png', 'charmeleon.png');
+
+INSERT INTO public.pokemons(
+	pokedex_num, name, description, sprite, image)
+	VALUES (006, 'Charizard', 'Escupe fuego tan caliente que funde las rocas. Causa incendios forestales sin querer.', 'charizard.png', 'charizard.png');
+
+
+
+01/08/2022
+CREATE TABLE public.evoluciones
+(
+    id_pokemon bigint NOT NULL,
+    id_evolucion bigint NOT NULL,
+    PRIMARY KEY (id_pokemon, id_evolucion),
+    CONSTRAINT fk_id_pokemon FOREIGN KEY (id_pokemon)
+        REFERENCES public.pokemons (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+    CONSTRAINT fk_id_evolucion FOREIGN KEY (id_evolucion)
+        REFERENCES public.pokemons (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+ALTER TABLE IF EXISTS public.evoluciones
+    OWNER to admin;
+
+ALTER TABLE evoluciones
+ADD CONSTRAINT fk_id_evolucion FOREIGN KEY (id_evolucion)
+REFERENCES pokemons (id) MATCH SIMPLE
+ON UPDATE NO ACTION
+ON DELETE NO ACTION
+NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.pokemons
+    ADD COLUMN parent_id bigint DEFAULT null;
