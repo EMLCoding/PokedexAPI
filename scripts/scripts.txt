@@ -74,3 +74,59 @@ NOT VALID;
 
 ALTER TABLE IF EXISTS public.pokemons
     ADD COLUMN parent_id bigint DEFAULT null;
+
+
+12/08/2022
+CREATE TABLE public.users
+(
+    id bigserial NOT NULL,
+    username text NOT NULL,
+    password text NOT NULL,
+    enabled boolean NOT NULL DEFAULT true,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE IF EXISTS public.users
+    OWNER to admin;
+
+
+
+CREATE TABLE public.roles
+(
+    id integer NOT NULL,
+    name text NOT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE IF EXISTS public.roles
+    OWNER to admin;
+
+
+INSERT INTO public.roles(id, name)
+	VALUES (1, 'ROLE_USER');
+
+INSERT INTO public.roles(id, name)
+	VALUES (2, 'ROLE_ADMIN');
+
+
+CREATE TABLE public.user_roles
+(
+    user_id bigint NOT NULL,
+    roles_id bigint NOT NULL,
+    PRIMARY KEY (user_id, roles_id),
+    CONSTRAINT fk_roles_id FOREIGN KEY (roles_id)
+        REFERENCES public.roles (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+ALTER TABLE IF EXISTS public.user_roles
+    OWNER to admin;
+
+ALTER TABLE user_roles
+ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id)
+REFERENCES users (id) MATCH SIMPLE
+ON UPDATE NO ACTION
+ON DELETE NO ACTION
+NOT VALID;
