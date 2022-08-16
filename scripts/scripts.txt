@@ -83,6 +83,7 @@ CREATE TABLE public.users
     username text NOT NULL,
     password text NOT NULL,
     enabled boolean NOT NULL DEFAULT true,
+    email text NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -109,7 +110,7 @@ INSERT INTO public.roles(id, name)
 	VALUES (2, 'ROLE_ADMIN');
 
 
-CREATE TABLE public.user_roles
+CREATE TABLE public.users_roles
 (
     user_id bigint NOT NULL,
     roles_id bigint NOT NULL,

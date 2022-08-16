@@ -26,6 +26,7 @@ import com.emlcoding.springboot.backend.apirest.services.PokemonsService;
 @RequestMapping("/api/pokemons")
 public class PokemonsController {
 	
+	
 	@Autowired
 	PokemonsService pokemonsService;
 
@@ -77,4 +78,5 @@ public class PokemonsController {
 		
 		return new ResponseEntity<Pokemon>(pokemon, HttpStatus.OK);
 	}
+
 }

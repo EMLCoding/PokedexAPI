@@ -1,8 +1,11 @@
 package com.emlcoding.springboot.backend.apirest.services;
 
-import com.emlcoding.springboot.backend.apirest.entity.UserApp;
+import com.emlcoding.springboot.backend.apirest.entity.Usuario;
+import java.util.List;
 
 public interface UserService {
 
-	public UserApp findByUsername(String username);
+	public Usuario findByUsername(String username);
+	
+	public List<Usuario> findAll();
 }

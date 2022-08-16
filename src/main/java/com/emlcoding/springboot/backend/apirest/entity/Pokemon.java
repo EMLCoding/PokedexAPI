@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 @Entity
 @Table(name="pokemons")
+
 public class Pokemon implements Serializable{
 	
 	@Id
@@ -137,3 +138,4 @@ public class Pokemon implements Serializable{
 	private static final long serialVersionUID = 2914731243797020390L;
 
 }
+

@@ -13,6 +13,7 @@ import com.emlcoding.springboot.backend.apirest.services.PokemonsService;
 @Service
 public class PokemonsServiceImpl implements PokemonsService{
 	
+	
 	@Autowired
 	private PokemonsDao pokemonsDao;
 
