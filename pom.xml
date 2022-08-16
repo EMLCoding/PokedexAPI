@@ -46,7 +46,6 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		<!-- JSON WEB TOKEN -->
-		<!--
 		<dependency>
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
@@ -65,7 +64,6 @@
 		    <groupId>org.glassfish.jaxb</groupId>
 		    <artifactId>jaxb-runtime</artifactId>
 		</dependency>
-		-->
 	</dependencies>
 
 	<build>

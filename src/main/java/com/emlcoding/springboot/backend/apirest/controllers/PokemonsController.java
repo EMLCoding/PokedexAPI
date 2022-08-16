@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +78,22 @@ public class PokemonsController {
 		}
 		
 		return new ResponseEntity<Pokemon>(pokemon, HttpStatus.OK);
+	}
+	
+	@GetMapping("/favorites/{id}")
+	public ResponseEntity<?> getPokemonsFavoritesBy(@PathVariable() Long userId) {
+		
+		List<Pokemon> favorites = new ArrayList<>();
+		try {
+			favorites = pokemonsService.getFavoritesBy(userId);
+		} catch(DataAccessException e) {
+			CustomError error = new CustomError();
+			error.setReason("Error searching favorites pokemons");
+			error.setCodeError(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<CustomError>(error, HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<>(favorites, HttpStatus.OK);
 	}
 
 }

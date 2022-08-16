@@ -2,16 +2,23 @@ package com.emlcoding.springboot.backend.apirest.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -46,6 +53,15 @@ public class Pokemon implements Serializable{
 	
 	@OneToMany(mappedBy="parent")
 	private List<Pokemon> evoluciones;
+	
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JsonIgnoreProperties(value = {"pokemons", "hibernateLazyInitializer", "handler"}, allowSetters = true)
+	@JoinTable(name = "pokemon_games", joinColumns = @JoinColumn(name = "pokemon_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
+	private List<Game> games;
+	
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinTable(name = "pokemon_types", joinColumns = @JoinColumn(name = "pokemon_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
+	private List<Types> types;
 
 	public Pokemon() {
 		this.evoluciones = new ArrayList<>();
@@ -131,6 +147,23 @@ public class Pokemon implements Serializable{
 
 	public void setEvoluciones(List<Pokemon> evoluciones) {
 		this.evoluciones = evoluciones;
+	}
+
+
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
+	}
+
+	public List<Types> getTypes() {
+		return types;
+	}
+
+	public void setTypes(List<Types> types) {
+		this.types = types;
 	}
 
 

@@ -8,4 +8,6 @@ public interface UserService {
 	public Usuario findByUsername(String username);
 	
 	public List<Usuario> findAll();
+	
+	public Usuario registerUser(Usuario usuario);
 }

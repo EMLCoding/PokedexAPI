@@ -1,5 +1,7 @@
 package com.emlcoding.springboot.backend.apirest.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +29,11 @@ public class PokemonsServiceImpl implements PokemonsService{
 	@Transactional(readOnly = true)
 	public Pokemon getPokemon(Long id) {
 		return pokemonsDao.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<Pokemon> getFavoritesBy(Long userId) {
+		return pokemonsDao.getFavoritesBy(userId);
 	}
 
 }
